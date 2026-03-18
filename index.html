@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Designing for Physicians — Montefiore Medical Center</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal-dark: #0F6E56;
+    --teal-mid: #1D9E75;
+    --teal-light: #9FE1CB;
+    --teal-pale: #E1F5EE;
+    --amber-dark: #854F0B;
+    --amber-mid: #EF9F27;
+    --amber-light: #FAC775;
+    --amber-pale: #FAEEDA;
+    --purple-dark: #3C3489;
+    --purple-mid: #7F77DD;
+    --purple-light: #AFA9EC;
+    --purple-pale: #EEEDFE;
+    --coral-dark: #993C1D;
+    --coral-mid: #D85A30;
+    --coral-pale: #FAECE7;
+    --ink: #1a1a18;
+    --muted: #5f5e5a;
+    --hint: #888780;
+    --bg: #ffffff;
+    --bg2: #f5f4f0;
+    --bg3: #eeede8;
+    --border: rgba(0,0,0,0.11);
+    --border2: rgba(0,0,0,0.18);
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #e8e6de;
+      --muted: #9c9a92;
+      --hint: #73726c;
+      --bg: #1e1e1c;
+      --bg2: #282826;
+      --bg3: #323230;
+      --border: rgba(255,255,255,0.09);
+      --border2: rgba(255,255,255,0.15);
+      --teal-pale: #04342c;
+      --teal-light: #085041;
+      --teal-dark: #5DCAA5;
+      --teal-mid: #1D9E75;
+      --amber-pale: #412402;
+      --amber-light: #633806;
+      --amber-dark: #EF9F27;
+      --amber-mid: #BA7517;
+      --purple-pale: #26215C;
+      --purple-light: #3C3489;
+      --purple-dark: #AFA9EC;
+      --purple-mid: #7F77DD;
+      --coral-pale: #4A1B0C;
+      --coral-dark: #F0997B;
+      --coral-mid: #D85A30;
+    }
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 2rem 1rem 5rem;
+    line-height: 1.6;
+  }
+
+  .container { max-width: 800px; margin: 0 auto; }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 2.25rem 2rem 2rem;
+    margin-bottom: 2rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: var(--teal-pale);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -40px; right: 120px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: var(--purple-pale);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--teal-dark);
+    background: var(--teal-pale);
+    border: 0.5px solid var(--teal-light);
+    padding: 3px 10px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    position: relative; z-index: 1;
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px; font-weight: 400;
+    color: var(--ink); line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero h1 em { font-style: italic; color: var(--teal-dark); }
+  .hero-sub {
+    position: relative; z-index: 1;
+    font-size: 15px; color: var(--muted);
+    line-height: 1.7; max-width: 560px;
+    margin-bottom: 18px;
+  }
+  .hero-ref {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--hint);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 5px 10px;
+    background: var(--bg);
+    text-decoration: none;
+  }
+  .hero-ref:hover { color: var(--teal-dark); border-color: var(--teal-light); }
+  .hero-ref-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal-mid); flex-shrink: 0;
+  }
+
+  /* ─── TABS ─── */
+  .tab-row {
+    display: flex; gap: 4px;
+    margin-bottom: 1.75rem; flex-wrap: wrap;
+  }
+  .tab {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; padding: 7px 15px;
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    background: var(--bg); color: var(--muted);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .tab:hover { background: var(--bg2); color: var(--ink); }
+  .tab.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+    font-weight: 500;
+  }
+
+  /* ─── PANELS ─── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ─── UTILITY ─── */
+  .eyebrow {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .eyebrow span { color: var(--teal-dark); }
+  .intro-p {
+    font-size: 14px; color: var(--muted);
+    line-height: 1.75; margin-bottom: 1.5rem;
+  }
+  .divider {
+    height: 0.5px; background: var(--border);
+    margin: 1.5rem 0;
+  }
+
+  /* ─── TECHNIQUE CARDS ─── */
+  .technique-card {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background: var(--bg);
+    transition: box-shadow 0.15s;
+  }
+  .tc-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .tc-header:hover { background: var(--bg2); }
+  .tc-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+    font-family: 'DM Serif Display', serif; font-style: italic;
+    font-size: 16px; font-weight: 400;
+  }
+  .icon-cot    { background: var(--teal-pale);   color: var(--teal-dark); }
+  .icon-cove   { background: var(--amber-pale);  color: var(--amber-dark); }
+  .icon-vs     { background: var(--purple-pale); color: var(--purple-dark); }
+  .tc-meta { flex: 1; }
+  .tc-badge {
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 4px;
+    display: inline-block; margin-bottom: 4px;
+  }
+  .badge-cot  { background: var(--teal-pale);   color: var(--teal-dark);   border: 0.5px solid var(--teal-light); }
+  .badge-cove { background: var(--amber-pale);  color: var(--amber-dark);  border: 0.5px solid var(--amber-light); }
+  .badge-vs   { background: var(--purple-pale); color: var(--purple-dark); border: 0.5px solid var(--purple-light); }
+  .tc-title { font-size: 17px; font-weight: 500; color: var(--ink); }
+  .tc-tagline { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .tc-arrow { font-size: 11px; color: var(--hint); transition: transform 0.2s; }
+  .technique-card.open .tc-arrow { transform: rotate(90deg); }
+
+  .tc-body {
+    display: none;
+    padding: 0 1.5rem 1.5rem;
+    border-top: 0.5px solid var(--border);
+  }
+  .technique-card.open .tc-body { display: block; }
+
+  .tc-definition {
+    font-size: 14px; color: var(--muted);
+    line-height: 1.75; margin: 1rem 0;
+    padding: 1rem 1.25rem;
+    background: var(--bg2);
+    border-radius: var(--radius-md);
+    border-left: 2px solid var(--border2);
+  }
+
+  .tc-steps { margin: 1rem 0; }
+  .tc-step {
+    display: flex; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .tc-step-num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 500;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .num-cot  { background: var(--teal-pale);   color: var(--teal-dark); }
+  .num-cove { background: var(--amber-pale);  color: var(--amber-dark); }
+  .num-vs   { background: var(--purple-pale); color: var(--purple-dark); }
+  .tc-step-text { font-size: 14px; color: var(--ink); line-height: 1.6; }
+  .tc-step-text strong { font-weight: 500; }
+
+  .tc-section-label {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--hint); margin: 1.25rem 0 8px;
+  }
+
+  .tc-example {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden; margin-bottom: 10px;
+  }
+  .tc-example-header {
+    padding: 8px 12px;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border-bottom: 0.5px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .ex-prompt-lbl { color: var(--muted); }
+  .ex-copy {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; padding: 3px 8px;
+    border: 0.5px solid var(--border2);
+    border-radius: 4px; background: var(--bg);
+    color: var(--muted); cursor: pointer;
+    transition: all 0.12s;
+  }
+  .ex-copy:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .tc-example-body {
+    padding: 12px; font-size: 13px; color: var(--ink);
+    line-height: 1.65;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .tc-example-body em {
+    font-style: normal; font-weight: 500;
+    color: var(--teal-dark);
+  }
+
+  .use-when-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px; margin-top: 8px;
+  }
+  @media (max-width: 560px) { .use-when-grid { grid-template-columns: 1fr; } }
+  .use-card {
+    padding: 10px 12px;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg);
+    font-size: 13px; color: var(--muted); line-height: 1.5;
+  }
+  .use-card strong { display: block; font-weight: 500; color: var(--ink); margin-bottom: 2px; font-size: 12px; }
+
+  .not-for {
+    padding: 10px 14px;
+    background: var(--bg2);
+    border-radius: var(--radius-md);
+    border: 0.5px solid var(--border);
+    font-size: 13px; color: var(--muted); line-height: 1.6;
+  }
+  .not-for strong { color: var(--coral-dark); font-weight: 500; }
+
+  .paper-ref {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--hint);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 4px 8px; text-decoration: none;
+    background: var(--bg); margin-top: 1rem;
+    transition: all 0.12s;
+  }
+  .paper-ref:hover { color: var(--teal-dark); border-color: var(--teal-light); }
+  .paper-ref-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal-mid); }
+
+  /* ─── DECISION PANEL ─── */
+  .decision-intro {
+    font-size: 14px; color: var(--muted);
+    line-height: 1.75; margin-bottom: 1.5rem;
+  }
+  .scenario-label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 8px; }
+  select {
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    padding: 9px 12px;
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-md);
+    background: var(--bg); color: var(--ink);
+    width: 100%; margin-bottom: 1.25rem;
+    cursor: pointer;
+  }
+
+  .decision-result {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: none;
+  }
+  .dr-header {
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .dr-technique {
+    font-size: 13px; font-weight: 500;
+    padding: 3px 10px; border-radius: 20px;
+  }
+  .dr-why { font-size: 13px; color: var(--muted); flex: 1; }
+  .dr-body { padding: 0 16px 16px; }
+  .dr-prompt-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--hint);
+    margin-bottom: 8px;
+  }
+  .dr-prompt {
+    padding: 12px 14px;
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 14px; color: var(--ink); line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .dr-prompt em { font-style: normal; font-weight: 500; color: var(--teal-dark); }
+  .copy-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px;
+    padding: 7px 14px;
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-md);
+    background: var(--bg); color: var(--ink);
+    cursor: pointer; transition: all 0.14s;
+  }
+  .copy-btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  /* ─── QUIZ ─── */
+  .quiz-q {
+    font-size: 15px; font-weight: 500;
+    color: var(--ink); line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+  .quiz-opt {
+    padding: 11px 14px;
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-md);
+    background: var(--bg); font-size: 14px;
+    color: var(--ink); cursor: pointer;
+    transition: all 0.13s; text-align: left;
+    font-family: 'DM Sans', sans-serif; line-height: 1.5;
+  }
+  .quiz-opt:hover:not(:disabled) { background: var(--bg2); }
+  .quiz-opt.correct { background: var(--teal-pale); border-color: var(--teal-mid); color: var(--teal-dark); font-weight: 500; }
+  .quiz-opt.wrong   { background: var(--coral-pale); border-color: var(--coral-mid); color: var(--coral-dark); }
+  .quiz-feedback {
+    font-size: 14px; color: var(--muted); line-height: 1.7;
+    padding: 12px 14px; background: var(--bg2);
+    border-radius: var(--radius-md);
+    border: 0.5px solid var(--border);
+    display: none; margin-bottom: 14px;
+  }
+  .quiz-nav { display: flex; align-items: center; justify-content: space-between; }
+  .quiz-dots { display: flex; gap: 5px; }
+  .qdot { width: 7px; height: 7px; border-radius: 50%; background: var(--border2); transition: background 0.2s; }
+  .qdot.done { background: var(--teal-mid); }
+  .qdot.current { background: var(--ink); }
+  .quiz-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px;
+    padding: 7px 16px;
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-md);
+    background: var(--bg); color: var(--ink);
+    cursor: pointer; transition: all 0.14s;
+  }
+  .quiz-btn:hover:not(:disabled) { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .quiz-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* ─── ABOUT / REFERENCES ─── */
+  .ref-card {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 1rem 1.25rem;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    margin-bottom: 10px;
+    text-decoration: none;
+    transition: background 0.14s;
+  }
+  .ref-card:hover { background: var(--bg2); }
+  .ref-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 500; flex-shrink: 0;
+  }
+  .ref-num-1 { background: var(--teal-pale); color: var(--teal-dark); }
+  .ref-num-2 { background: var(--amber-pale); color: var(--amber-dark); }
+  .ref-num-3 { background: var(--purple-pale); color: var(--purple-dark); }
+  .ref-text {}
+  .ref-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; line-height: 1.4; }
+  .ref-authors { font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+  .ref-link { font-size: 12px; color: var(--teal-dark); }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 0.5px solid var(--border);
+    font-size: 12px; color: var(--hint);
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 6px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ─── HERO ─── -->
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <div class="hero-ref-dot"></div>
+      Montefiore Medical Center
+    </div>
+    <h1>Prompt Designing<br><em>for Physicians</em></h1>
+    <p class="hero-sub">AI tools give better answers when you prompt them better. This guide covers three evidence-based prompting strategies — when to use each, why it works, and what it looks like in clinical practice.</p>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;position:relative;z-index:1">
+      <span style="font-size:13px;color:var(--muted)">Authors:</span>
+      <span style="font-size:13px;font-weight:500;color:var(--ink)">Shitij Arora, MD</span>
+      <span style="color:var(--hint);font-size:13px">·</span>
+      <span style="font-size:13px;font-weight:500;color:var(--ink)">Sunit Jariwala, MD</span>
+    </div>
+    <a class="hero-ref" href="https://arxiv.org/abs/2402.07927" target="_blank">
+      <div class="hero-ref-dot"></div>
+      Sahoo et al. 2024 — arXiv:2402.07927
+    </a>
+  </div>
+
+  <!-- ─── TABS ─── -->
+  <div class="tab-row">
+    <button class="tab active" onclick="showPanel('techniques', this)">Techniques</button>
+    <button class="tab" onclick="showPanel('decide', this)">Which one?</button>
+    <button class="tab" onclick="showPanel('quiz', this)">Quiz</button>
+    <button class="tab" onclick="showPanel('references', this)">References</button>
+  </div>
+
+  <!-- ════════════════════════════════════
+       PANEL 1 — TECHNIQUES
+  ════════════════════════════════════ -->
+  <div id="panel-techniques" class="panel active">
+    <div class="eyebrow">Three techniques — <span>click each to expand</span></div>
+
+    <!-- CHAIN OF THOUGHT -->
+    <div class="technique-card" id="tc-cot">
+      <div class="tc-header" onclick="toggleCard('tc-cot')">
+        <div class="tc-icon icon-cot">CoT</div>
+        <div class="tc-meta">
+          <div class="tc-badge badge-cot">Chain of Thought</div>
+          <div class="tc-title">Think step by step</div>
+          <div class="tc-tagline">For complex reasoning — make the model show its work</div>
+        </div>
+        <div class="tc-arrow">▶</div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-definition">
+          Chain of Thought (CoT) prompting instructs the model to decompose a complex problem into a sequence of explicit intermediate reasoning steps before producing a final answer. Rather than jumping to a conclusion, the model is asked to reason through the problem out loud — mimicking the kind of deliberate thinking a physician does when working through a differential or treatment plan.
+        </div>
+
+        <div class="tc-section-label">How it works</div>
+        <div class="tc-steps">
+          <div class="tc-step">
+            <div class="tc-step-num num-cot">1</div>
+            <div class="tc-step-text"><strong>Frame the problem</strong> — give the model a specific clinical scenario with all relevant details</div>
+          </div>
+          <div class="tc-step">
+            <div class="tc-step-num num-cot">2</div>
+            <div class="tc-step-text"><strong>Instruct step-by-step reasoning</strong> — add a phrase like "think through this step by step" or "reason through each consideration before answering"</div>
+          </div>
+          <div class="tc-step">
+            <div class="tc-step-num num-cot">3</div>
+            <div class="tc-step-text"><strong>Read the reasoning, not just the answer</strong> — the reasoning chain is where errors surface; the final answer alone can look correct even when the logic is flawed</div>
+          </div>
+        </div>
+
+        <div class="tc-section-label">Clinical example</div>
+        <div class="tc-example">
+          <div class="tc-example-header">
+            <span class="ex-prompt-lbl">Prompt</span>
+            <button class="ex-copy" onclick="copyText('cot-ex')">Copy</button>
+          </div>
+          <div class="tc-example-body" id="cot-ex">A 68-year-old male with HFrEF (EF 25%), CKD stage 3 (eGFR 34), and hyperkalemia (K+ 5.4) presents for medication optimization. He is currently on carvedilol 25mg BID and furosemide 40mg daily. <em>Think through step by step</em> which additional evidence-based therapies should be considered, what contraindications or precautions apply for each, and in what order they should be introduced.</div>
+        </div>
+
+        <div class="tc-section-label">Use when</div>
+        <div class="use-when-grid">
+          <div class="use-card"><strong>Differential diagnosis</strong>Reasoning through competing diagnoses with overlapping presentations</div>
+          <div class="use-card"><strong>Treatment sequencing</strong>Deciding the order of therapy additions in complex patients</div>
+          <div class="use-card"><strong>Risk-benefit analysis</strong>Weighing procedure risk against clinical benefit</div>
+          <div class="use-card"><strong>Multi-factor decisions</strong>Any scenario with several interacting variables (renal function, drug interactions, comorbidities)</div>
+        </div>
+
+        <div class="tc-section-label">Not the right tool when</div>
+        <div class="not-for">
+          <strong>Avoid CoT</strong> for simple lookup questions ("what is the half-life of metoprolol") or when you just need a concise summary. Asking the model to reason through something that doesn't require reasoning produces verbose, unhelpful output.
+        </div>
+
+        <a class="paper-ref" href="https://arxiv.org/abs/2402.07927" target="_blank">
+          <div class="paper-ref-dot"></div>
+          Sahoo et al. (2024), arXiv:2402.07927 — see CoT section
+        </a>
+      </div>
+    </div>
+
+    <!-- CHAIN OF VERIFICATION -->
+    <div class="technique-card" id="tc-cove">
+      <div class="tc-header" onclick="toggleCard('tc-cove')">
+        <div class="tc-icon icon-cove">CoVe</div>
+        <div class="tc-meta">
+          <div class="tc-badge badge-cove">Chain of Verification</div>
+          <div class="tc-title">Make the model check its own work</div>
+          <div class="tc-tagline">For fact-sensitive outputs — structured self-audit to reduce hallucination</div>
+        </div>
+        <div class="tc-arrow">▶</div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-definition">
+          Chain of Verification (CoVe) is a four-step prompting strategy in which the model generates an initial response, then independently plans and answers targeted verification questions about that response, and finally produces a revised answer incorporating what it found. The key insight is that verification questions are answered independently from the original response — preventing the model from simply echoing its prior output. Research shows CoVe reduces hallucinations while maintaining factual accuracy.
+        </div>
+
+        <div class="tc-section-label">The four steps</div>
+        <div class="tc-steps">
+          <div class="tc-step">
+            <div class="tc-step-num num-cove">1</div>
+            <div class="tc-step-text"><strong>Generate</strong> — the model produces a baseline response to your question</div>
+          </div>
+          <div class="tc-step">
+            <div class="tc-step-num num-cove">2</div>
+            <div class="tc-step-text"><strong>Plan verification</strong> — the model identifies specific factual claims in its response that could be wrong and frames them as questions</div>
+          </div>
+          <div class="tc-step">
+            <div class="tc-step-num num-cove">3</div>
+            <div class="tc-step-text"><strong>Answer independently</strong> — each verification question is answered on its own, without reference to the original response</div>
+          </div>
+          <div class="tc-step">
+            <div class="tc-step-num num-cove">4</div>
+            <div class="tc-step-text"><strong>Revise</strong> — the model updates its original answer based on the verification findings</div>
+          </div>
+        </div>
+
+        <div class="tc-section-label">Clinical example — two-turn approach</div>
+        <div class="tc-example">
+          <div class="tc-example-header">
+            <span class="ex-prompt-lbl">Turn 1 — initial response</span>
+            <button class="ex-copy" onclick="copyText('cove-ex1')">Copy</button>
+          </div>
+          <div class="tc-example-body" id="cove-ex1">What are the current guideline-recommended anticoagulation options for a patient with non-valvular atrial fibrillation and a CHA₂DS₂-VASc score of 4? List each agent, its typical dosing, and any key renal dose adjustments.</div>
+        </div>
+        <div class="tc-example">
+          <div class="tc-example-header">
+            <span class="ex-prompt-lbl">Turn 2 — verification prompt</span>
+            <button class="ex-copy" onclick="copyText('cove-ex2')">Copy</button>
+          </div>
+          <div class="tc-example-body" id="cove-ex2">Now identify any specific factual claims in your response that could be incorrect — such as dosing thresholds, eGFR cutoffs, or guideline class of recommendation. For each one, answer the verification question independently (without looking at what you said before), then revise your full response to correct any errors you find.</div>
+        </div>
+
+        <div class="tc-section-label">Use when</div>
+        <div class="use-when-grid">
+          <div class="use-card"><strong>Drug dosing</strong>Any time specific doses, thresholds, or cutoffs are included in the output</div>
+          <div class="use-card"><strong>Guideline specifics</strong>When you need class of recommendation or level of evidence to be accurate</div>
+          <div class="use-card"><strong>List-based answers</strong>Responses listing multiple agents, criteria, or steps — each item is a potential error</div>
+          <div class="use-card"><strong>High-stakes decisions</strong>Any output you might act on clinically without independently verifying every fact</div>
+        </div>
+
+        <div class="tc-section-label">Not the right tool when</div>
+        <div class="not-for">
+          <strong>Avoid CoVe</strong> for creative tasks (drafting patient education, writing an abstract structure) where factual hallucination isn't the primary risk. It adds turns and length; use it selectively for outputs with consequential facts.
+        </div>
+
+        <a class="paper-ref" href="https://arxiv.org/abs/2402.07927" target="_blank">
+          <div class="paper-ref-dot"></div>
+          Sahoo et al. (2024), arXiv:2402.07927 — CoVe; original: Dhuliawala et al. (2023)
+        </a>
+      </div>
+    </div>
+
+    <!-- VERBALIZED SAMPLING -->
+    <div class="technique-card" id="tc-vs">
+      <div class="tc-header" onclick="toggleCard('tc-vs')">
+        <div class="tc-icon icon-vs">VS</div>
+        <div class="tc-meta">
+          <div class="tc-badge badge-vs">Verbalized Sampling</div>
+          <div class="tc-title">Ask for options, not just one answer</div>
+          <div class="tc-tagline">For open-ended tasks — unlock diverse outputs by requesting a distribution</div>
+        </div>
+        <div class="tc-arrow">▶</div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-definition">
+          Verbalized Sampling (VS) addresses a subtle problem: post-training alignment causes LLMs to converge on a single "typical" answer, suppressing the full range of plausible responses. VS works by asking the model to explicitly generate multiple distinct responses along with a probability or confidence weight for each — rather than producing one answer. This recovers diversity from the model's underlying training and gives you a richer set of options to evaluate. Research shows VS improves output diversity 1.6–2.1× without sacrificing quality or accuracy.
+        </div>
+
+        <div class="tc-section-label">How it works</div>
+        <div class="tc-steps">
+          <div class="tc-step">
+            <div class="tc-step-num num-vs">1</div>
+            <div class="tc-step-text"><strong>Reframe your prompt</strong> — instead of "give me an approach to X," ask for "5 distinct approaches to X with a relative probability or confidence for each"</div>
+          </div>
+          <div class="tc-step">
+            <div class="tc-step-num num-vs">2</div>
+            <div class="tc-step-text"><strong>Request the tails</strong> — optionally add "include less common or unconventional options, not just the most typical answer" to push the model away from its default mode</div>
+          </div>
+          <div class="tc-step">
+            <div class="tc-step-num num-vs">3</div>
+            <div class="tc-step-text"><strong>Select and apply your judgment</strong> — review the distribution of options and apply clinical expertise to choose the most appropriate for your patient</div>
+          </div>
+        </div>
+
+        <div class="tc-section-label">Clinical example</div>
+        <div class="tc-example">
+          <div class="tc-example-header">
+            <span class="ex-prompt-lbl">Prompt</span>
+            <button class="ex-copy" onclick="copyText('vs-ex')">Copy</button>
+          </div>
+          <div class="tc-example-body" id="vs-ex">Generate <em>5 distinct framings</em> for how to explain the risks and benefits of ICD implantation to a 72-year-old patient with HFrEF who is reluctant and has low health literacy. For each framing, provide a <em>brief description and a relative probability</em> that it would resonate with this type of patient. Include both conventional and less typical communication approaches — not just the most standard explanation.</div>
+        </div>
+
+        <div class="tc-section-label">Use when</div>
+        <div class="use-when-grid">
+          <div class="use-card"><strong>Patient communication</strong>Finding the right frame for a difficult conversation — consent, behavior change, diagnosis delivery</div>
+          <div class="use-card"><strong>Drafting &amp; writing</strong>When one version of a patient handout, letter, or abstract isn't enough to evaluate</div>
+          <div class="use-card"><strong>Brainstorming</strong>Generating a differential, a research question, or QI project ideas where breadth matters</div>
+          <div class="use-card"><strong>Educational content</strong>Creating varied case scenarios, vignettes, or teaching points across a spectrum of difficulty</div>
+        </div>
+
+        <div class="tc-section-label">Not the right tool when</div>
+        <div class="not-for">
+          <strong>Avoid VS</strong> when you need one authoritative, fact-checked answer. If you're asking what the correct eGFR threshold is for dose-adjusting apixaban, multiple options with probabilities is not helpful — and potentially dangerous. Use CoVe instead.
+        </div>
+
+        <a class="paper-ref" href="https://arxiv.org/abs/2510.01171" target="_blank">
+          <div class="paper-ref-dot"></div>
+          Zhang et al. (2025) — Verbalized Sampling, arXiv:2510.01171
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       PANEL 2 — WHICH ONE?
+  ════════════════════════════════════ -->
+  <div id="panel-decide" class="panel">
+    <div class="eyebrow">Decision guide — <span>match your task to a technique</span></div>
+    <p class="decision-intro">Select a clinical task below. The guide will recommend which technique fits best, explain why, and show you a ready-to-use example prompt.</p>
+
+    <label class="scenario-label">What are you trying to do?</label>
+    <select onchange="showDecision(this.value)">
+      <option value="">— Choose a task —</option>
+      <optgroup label="Clinical reasoning">
+        <option value="differential">Work through a differential diagnosis</option>
+        <option value="treatment_seq">Sequence therapy additions in a complex patient</option>
+        <option value="risk_benefit">Weigh risk vs benefit for a procedure or medication</option>
+      </optgroup>
+      <optgroup label="Fact-checking &amp; accuracy">
+        <option value="dosing">Get drug dosing with renal/hepatic adjustments</option>
+        <option value="guideline">Look up guideline recommendation class/level</option>
+        <option value="drug_interaction">Check a drug interaction</option>
+      </optgroup>
+      <optgroup label="Communication &amp; drafting">
+        <option value="patient_explain">Explain a diagnosis or procedure to a patient</option>
+        <option value="shared_decision">Support a shared decision-making conversation</option>
+        <option value="handout">Draft a patient education handout</option>
+      </optgroup>
+      <optgroup label="Research &amp; education">
+        <option value="brainstorm">Brainstorm research questions or QI ideas</option>
+        <option value="cases">Generate teaching cases or vignettes</option>
+        <option value="abstract">Draft or critique a research abstract</option>
+      </optgroup>
+    </select>
+
+    <div class="decision-result" id="decision-result"></div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       PANEL 3 — QUIZ
+  ════════════════════════════════════ -->
+  <div id="panel-quiz" class="panel">
+    <div class="eyebrow">Test yourself — <span>5 questions on technique selection</span></div>
+    <p class="intro-p">Each question presents a clinical scenario. Choose the prompting technique that best fits. Explanations are shown after each answer.</p>
+    <div id="quiz-container"></div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       PANEL 4 — REFERENCES
+  ════════════════════════════════════ -->
+  <div id="panel-references" class="panel">
+    <div class="eyebrow">Source papers — <span>the evidence behind these techniques</span></div>
+    <p class="intro-p">These techniques are drawn from peer-reviewed and preprint literature in prompt engineering. This guide is grounded in the systematic survey below and the original papers for each technique.</p>
+
+    <a class="ref-card" href="https://arxiv.org/abs/2402.07927" target="_blank">
+      <div class="ref-num ref-num-1">1</div>
+      <div class="ref-text">
+        <div class="ref-title">A Systematic Survey of Prompt Engineering in Large Language Models: Techniques and Applications</div>
+        <div class="ref-authors">Sahoo, Singh, Saha, Jain, Mondal, Chadha (2024) — Indian Institute of Technology Patna</div>
+        <div class="ref-link">arXiv:2402.07927 · doi:10.48550/arXiv.2402.07927</div>
+      </div>
+    </a>
+
+    <a class="ref-card" href="https://arxiv.org/abs/2309.11495" target="_blank">
+      <div class="ref-num ref-num-2">2</div>
+      <div class="ref-text">
+        <div class="ref-title">Chain-of-Verification Reduces Hallucination in Large Language Models</div>
+        <div class="ref-authors">Dhuliawala, Komeili, Xu, Raileanu, Li, Celikyilmaz, Weston (2023) — Meta AI</div>
+        <div class="ref-link">arXiv:2309.11495 — original CoVe paper</div>
+      </div>
+    </a>
+
+    <a class="ref-card" href="https://arxiv.org/abs/2510.01171" target="_blank">
+      <div class="ref-num ref-num-3">3</div>
+      <div class="ref-text">
+        <div class="ref-title">Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity</div>
+        <div class="ref-authors">Zhang, Yu, Chong, Sicilia, Gerstenberg, May, Potts (2025) — Stanford NLP</div>
+        <div class="ref-link">arXiv:2510.01171 — original Verbalized Sampling paper</div>
+      </div>
+    </a>
+
+    <div class="divider"></div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.7">Chain of Thought prompting was originally described by Wei et al. (2022) and further developed through Auto-CoT, Active-Prompting, and related work. The Sahoo et al. survey (ref 1) provides a comprehensive taxonomy and is the primary organizing reference for this guide. All techniques described here are training-free — they work with any major LLM via natural language alone.</p>
+  </div>
+
+  <div class="footer">
+    <span>Prompt Designing for Physicians · Montefiore Medical Center</span>
+    <span>Shitij Arora, MD · Sunit Jariwala, MD · Based on Sahoo et al. 2024, arXiv:2402.07927</span>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ── TABS ── */
+function showPanel(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'quiz') initQuiz();
+}
+
+/* ── ACCORDION ── */
+function toggleCard(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+/* ── COPY ── */
+function copyText(id) {
+  const el = document.getElementById(id);
+  const text = el.innerText;
+  navigator.clipboard.writeText(text).catch(() => {
+    const r = document.createElement('textarea');
+    r.value = text; document.body.appendChild(r); r.select();
+    document.execCommand('copy'); document.body.removeChild(r);
+  });
+  const btn = el.closest('.tc-example').querySelector('.ex-copy');
+  btn.textContent = 'Copied ✓';
+  setTimeout(() => btn.textContent = 'Copy', 2000);
+}
+
+/* ── DECISION ── */
+const decisions = {
+  differential: {
+    technique: 'Chain of Thought',
+    cls: 'badge-cot', headerBg: 'var(--teal-pale)',
+    why: 'A differential requires explicit reasoning through each possibility — likelihood, supporting findings, and what would rule it in or out. CoT makes that reasoning visible and auditable.',
+    prompt: 'A 55-year-old woman presents with exertional dyspnea for 3 months, bilateral leg swelling, and a new S3 on exam. She has a history of hypertension and type 2 diabetes. <strong>Think through this step by step:</strong> what are the most likely diagnoses in order of probability, what features support each, and what initial workup would best differentiate them?'
+  },
+  treatment_seq: {
+    technique: 'Chain of Thought',
+    cls: 'badge-cot', headerBg: 'var(--teal-pale)',
+    why: 'Sequencing therapy in a complex patient involves multiple interacting constraints. CoT forces the model to reason through each one explicitly rather than producing a list that may ignore interactions.',
+    prompt: 'A 74-year-old male with HFrEF (EF 28%), CKD stage 3b (eGFR 28), hyperkalemia (K+ 5.6), and NYHA class III symptoms is on carvedilol 12.5mg BID and furosemide 80mg daily. <strong>Reason step by step:</strong> which additional guideline-directed therapies should be considered, in what order, and what monitoring or dose adjustments are required given his renal function and potassium?'
+  },
+  risk_benefit: {
+    technique: 'Chain of Thought',
+    cls: 'badge-cot', headerBg: 'var(--teal-pale)',
+    why: 'Risk-benefit analysis involves multiple dimensions that interact — clinical, procedural, patient-specific. CoT ensures each dimension is evaluated before a conclusion is drawn.',
+    prompt: 'A 79-year-old woman with severe aortic stenosis (AVA 0.7 cm², mean gradient 48 mmHg), EF 40%, CKD stage 3, and moderate frailty is referred for valve intervention. <strong>Think through step by step</strong> the risks and benefits of TAVR vs surgical AVR vs medical management, considering her specific risk profile. What factors most influence the recommendation?'
+  },
+  dosing: {
+    technique: 'Chain of Verification',
+    cls: 'badge-cove', headerBg: 'var(--amber-pale)',
+    why: 'Dosing information is highly specific and the consequences of error are direct. CoVe prompts the model to independently verify each dose and threshold it cites, catching hallucinated or outdated values.',
+    prompt: 'What are the recommended doses for apixaban, rivaroxaban, and dabigatran for stroke prevention in non-valvular AF? Include the eGFR thresholds for dose reduction or avoidance for each. Then <strong>identify each specific numerical claim you just made, verify each one independently</strong>, and correct any errors in a revised response.'
+  },
+  guideline: {
+    technique: 'Chain of Verification',
+    cls: 'badge-cove', headerBg: 'var(--amber-pale)',
+    why: 'Guideline recommendations have exact class and level of evidence designations. Models frequently misattribute or confabulate these. CoVe surfaces that risk by making the model verify each claim independently.',
+    prompt: 'According to the 2022 AHA/ACC/HFSA Heart Failure Guidelines, what is the class of recommendation and level of evidence for sacubitril/valsartan in HFrEF? Then <strong>verify each specific claim</strong> — guideline version, class, and level — independently, and correct any errors in a revised answer.'
+  },
+  drug_interaction: {
+    technique: 'Chain of Verification',
+    cls: 'badge-cove', headerBg: 'var(--amber-pale)',
+    why: 'Drug interaction details (mechanism, severity, management) are specific and consequential. CoVe helps the model catch and self-correct any incorrect mechanism or management recommendation.',
+    prompt: 'Describe the pharmacokinetic interaction between rivaroxaban and amiodarone — mechanism, clinical significance, and recommended management. Then <strong>independently verify each claim</strong> (mechanism, severity classification, management recommendation), and revise your response to correct any errors.'
+  },
+  patient_explain: {
+    technique: 'Verbalized Sampling',
+    cls: 'badge-vs', headerBg: 'var(--purple-pale)',
+    why: 'There is no single "correct" way to explain a diagnosis — the right framing depends heavily on the individual patient. VS generates a range of explanations so you can choose the one that fits.',
+    prompt: 'Generate <strong>5 distinct explanations</strong> of what heart failure means for a patient, each with a different framing or metaphor, along with a <strong>relative probability</strong> that it would resonate with a patient who has low health literacy and significant anxiety. Include both common and less conventional framings.'
+  },
+  shared_decision: {
+    technique: 'Verbalized Sampling',
+    cls: 'badge-vs', headerBg: 'var(--purple-pale)',
+    why: 'Shared decision-making conversations need to account for diverse patient values, fears, and priorities. VS generates multiple distinct conversation openings so the clinician can select and adapt.',
+    prompt: 'Generate <strong>5 different ways to open a shared decision-making conversation</strong> about ICD implantation with a 70-year-old patient with HFrEF who has expressed reluctance. For each, provide a <strong>brief rationale and relative probability</strong> that it would engage this patient. Include approaches ranging from evidence-focused to values-focused.'
+  },
+  handout: {
+    technique: 'Verbalized Sampling',
+    cls: 'badge-vs', headerBg: 'var(--purple-pale)',
+    why: 'A patient handout needs to strike the right tone, length, and level of detail for a specific population. VS lets you generate several versions and choose (or combine) the best elements.',
+    prompt: 'Generate <strong>4 distinct versions</strong> of a brief patient handout explaining why daily weight monitoring matters for someone with heart failure. Each version should have a different tone, reading level, or format (e.g., narrative, bullet list, Q&A). Include a <strong>probability or confidence</strong> that each would be appropriate for a patient with an 8th-grade reading level.'
+  },
+  brainstorm: {
+    technique: 'Verbalized Sampling',
+    cls: 'badge-vs', headerBg: 'var(--purple-pale)',
+    why: 'Brainstorming benefits from breadth. VS explicitly counters the model\'s tendency to produce one obvious answer and generates a richer set of options across the probability distribution.',
+    prompt: 'Generate <strong>6 distinct research questions</strong> investigating the impact of remote monitoring on heart failure readmission rates. For each, provide a <strong>relative probability</strong> that it represents a meaningful gap in the current literature. Include both conventional and more novel or unconventional angles.'
+  },
+  cases: {
+    technique: 'Verbalized Sampling',
+    cls: 'badge-vs', headerBg: 'var(--purple-pale)',
+    why: 'A set of teaching cases needs variety — different presentations, demographics, and levels of complexity. VS generates a distribution of options rather than multiple versions of the same "typical" case.',
+    prompt: 'Generate <strong>5 distinct clinical vignettes</strong> of heart failure presentations suitable for internal medicine residents, varying in complexity, patient demographics, and atypical features. For each, include a <strong>relative difficulty rating</strong>. Deliberately include cases that go beyond the most common presentation.'
+  },
+  abstract: {
+    technique: 'Chain of Thought',
+    cls: 'badge-cot', headerBg: 'var(--teal-pale)',
+    why: 'A good abstract follows an argumentative logic — background, gap, methods, findings, implications. CoT ensures the model builds each section deliberately rather than filling in a template without reasoning about whether it is coherent.',
+    prompt: 'I am writing an abstract for a study examining whether structured pharmacist-led medication reconciliation reduces 30-day readmission in HFrEF patients. <strong>Reason through step by step:</strong> what should each section of the abstract (background, objective, methods, results placeholder, conclusion) contain to make the study\'s contribution clear? Then draft the abstract with that structure.'
+  }
+};
+
+function showDecision(key) {
+  const d = decisions[key];
+  const el = document.getElementById('decision-result');
+  if (!d) { el.style.display = 'none'; return; }
+  el.style.display = 'block';
+  el.style.borderColor = 'var(--border2)';
+  el.innerHTML =
+    '<div class="dr-header" style="background:' + d.headerBg + '">' +
+      '<span class="tc-badge ' + d.cls + '">' + d.technique + '</span>' +
+      '<span class="dr-why">' + d.why + '</span>' +
+    '</div>' +
+    '<div class="dr-body">' +
+      '<div class="dr-prompt-label">Example prompt</div>' +
+      '<div class="dr-prompt" id="dr-prompt-text">' + d.prompt.replace(/<strong>/g,'<em>').replace(/<\/strong>/g,'</em>') + '</div>' +
+      '<button class="copy-btn" onclick="copyDecision()">Copy prompt ↗</button>' +
+    '</div>';
+}
+
+function copyDecision() {
+  const text = document.getElementById('dr-prompt-text').innerText;
+  navigator.clipboard.writeText(text).catch(() => {
+    const r = document.createElement('textarea');
+    r.value = text; document.body.appendChild(r); r.select();
+    document.execCommand('copy'); document.body.removeChild(r);
+  });
+  const btn = document.querySelector('#decision-result .copy-btn');
+  btn.textContent = 'Copied ✓';
+  setTimeout(() => btn.textContent = 'Copy prompt ↗', 2000);
+}
+
+/* ── QUIZ ── */
+const quizData = [
+  {
+    q: 'You ask an AI for the correct eGFR threshold at which apixaban should be avoided in AF. The model gives a confident numerical answer. What is the best next step with your prompt?',
+    opts: [
+      'Accept the answer — LLMs are reliable for specific drug facts',
+      'Use Verbalized Sampling to get 5 different threshold values',
+      'Follow up with a Chain of Verification prompt asking the model to independently verify the specific number it cited',
+      'Use Chain of Thought to reason through the pharmacokinetics'
+    ],
+    correct: 2,
+    feedback: 'This is a specific factual claim with direct clinical consequences. CoVe is designed for exactly this: the model has given a number — now prompt it to verify that number independently, without anchoring to its previous answer. VS would produce multiple conflicting values (unhelpful for a single correct threshold). CoT would produce reasoning, but not self-correction of a specific fact.'
+  },
+  {
+    q: 'You want to explain to a 65-year-old patient with newly diagnosed HFrEF what the diagnosis means. You are not sure which framing — emotional, practical, metaphor-based — will resonate best. Which technique fits?',
+    opts: [
+      'Chain of Thought — reason through the best explanation step by step',
+      'Chain of Verification — verify that your explanation is factually accurate',
+      'Verbalized Sampling — generate multiple distinct framings with relative probabilities',
+      'A basic prompt is sufficient for patient education'
+    ],
+    correct: 2,
+    feedback: 'There is no single "correct" explanation — the right one depends on this particular patient. VS generates a distribution of options (narrative, metaphor-based, practical, etc.) so you can choose the framing most likely to resonate. CoT would give you one explanation with detailed reasoning; CoVe would verify facts in a single explanation. Neither solves the problem of not knowing which framing fits.'
+  },
+  {
+    q: 'A patient with HFrEF, CKD 3b, hyperkalemia, and NYHA class III is on submaximal beta-blocker and diuretic. You want the AI to help you decide which additional therapies to introduce and in what order. Which technique is most appropriate?',
+    opts: [
+      'Verbalized Sampling — generate 5 different therapy sequences',
+      'Chain of Thought — prompt the model to reason through each option considering the interacting constraints',
+      'Chain of Verification — verify that each drug is guideline-recommended',
+      'A basic prompt listing the patient\'s conditions'
+    ],
+    correct: 1,
+    feedback: 'This is a multi-constraint reasoning problem — each therapy choice interacts with renal function, potassium, and the others. CoT is the right tool: it surfaces the reasoning chain so you can see whether the model is correctly accounting for each factor. VS would give you sequences without reasoning through the interactions. CoVe is useful after, to verify specific facts in the output.'
+  },
+  {
+    q: 'You are developing a set of teaching cases on heart failure for a resident curriculum. You want variety across demographics, presentation, and complexity level. Which technique best serves this goal?',
+    opts: [
+      'Chain of Thought — reason through what makes a good teaching case',
+      'Chain of Verification — ensure each case is clinically accurate',
+      'Verbalized Sampling — request multiple distinct cases with varied characteristics and a relative difficulty rating',
+      'Basic prompting — just ask for 5 cases'
+    ],
+    correct: 2,
+    feedback: 'Without VS, the model will tend to generate 5 variations of the same "typical" case — same demographics, similar presentation. VS explicitly requests a distribution with deliberate diversity, and the probability/difficulty weighting gives you additional information to sequence the curriculum. CoT and CoVe serve different purposes; basic prompting will produce repetitive output.'
+  },
+  {
+    q: 'Which of the following is the clearest signal that Chain of Verification is the right technique to add to your prompt?',
+    opts: [
+      'You are asking an open-ended question with no single correct answer',
+      'The output will contain specific numerical claims (doses, thresholds, scores) that you might act on clinically',
+      'You want the model to explain its reasoning before giving an answer',
+      'You need multiple versions of the same content to choose from'
+    ],
+    correct: 1,
+    feedback: 'CoVe is specifically designed for outputs containing specific factual claims — doses, thresholds, guideline designations — where a hallucinated value could lead to a clinical error. When the output includes a number or a specific recommendation you might act on, CoVe\'s independent verification step is the safety net. Open-ended questions → VS. Reasoning needed → CoT. Multiple versions → VS.'
+  }
+];
+
+let currentQ = 0, quizAnswered = false;
+
+function initQuiz() {
+  currentQ = 0; quizAnswered = false;
+  renderQ();
+}
+
+function renderQ() {
+  quizAnswered = false;
+  const q = quizData[currentQ];
+  const dots = quizData.map((_,i) =>
+    '<div class="qdot' + (i < currentQ ? ' done' : i === currentQ ? ' current' : '') + '"></div>'
+  ).join('');
+  document.getElementById('quiz-container').innerHTML =
+    '<div class="quiz-q">Q' + (currentQ+1) + ' of ' + quizData.length + ': ' + q.q + '</div>' +
+    '<div class="quiz-options">' +
+      q.opts.map((o,i) => '<button class="quiz-opt" onclick="answerQ(' + i + ')">' + o + '</button>').join('') +
+    '</div>' +
+    '<div class="quiz-feedback" id="qfb">' + q.feedback + '</div>' +
+    '<div class="quiz-nav">' +
+      '<div class="quiz-dots">' + dots + '</div>' +
+      '<button class="quiz-btn" id="qnext" onclick="nextQ()" disabled>' +
+        (currentQ < quizData.length - 1 ? 'Next →' : 'Restart') +
+      '</button>' +
+    '</div>';
+}
+
+function answerQ(i) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const q = quizData[currentQ];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts[i].classList.add(i === q.correct ? 'correct' : 'wrong');
+  if (i !== q.correct) opts[q.correct].classList.add('correct');
+  opts.forEach(o => o.disabled = true);
+  document.getElementById('qfb').style.display = 'block';
+  document.getElementById('qnext').disabled = false;
+}
+
+function nextQ() {
+  if (currentQ < quizData.length - 1) { currentQ++; renderQ(); }
+  else { initQuiz(); }
+}
+</script>
+</body>
+</html>
